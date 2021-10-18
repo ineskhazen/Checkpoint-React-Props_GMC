@@ -1,19 +1,22 @@
 import React from "react";
-import Movie from "../Movie/Movie";
+import MovieCard from "../MovieCard/MovieCard";
 
-import "./MoviesList.css";
-
-const MoviesList = ({ items }) => {
+const MoviesList = ({ movies,searchTitle,searchRating }) => {
     const handleName = (name) => alert(`this movie's name is ${name}`);
     return (
-      <div>
+      <div >
         <h2 className="title">MoviesList </h2>
-        <div className="container">
-          {items.map((el, i) => (
-            <Movie item={el} key={i} handleName={handleName} />
+        <div className="container" style={{display:"flex",justifyContent:"space-around",flexWrap:"wrap"}} >
+          {movies.filter((el)=>el.name.toUpperCase().includes(searchTitle.toUpperCase()) 
+          &&
+          el.rating >= searchRating
+          )
+          .map((movie) => (
+            <MovieCard movie={movie} key={movie.id} handleName={handleName} />
           ))}
-        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
+         
   export default MoviesList;
